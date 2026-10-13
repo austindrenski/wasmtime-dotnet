@@ -75,7 +75,7 @@ public sealed class LinkerTests
         using var module = Module.FromText(
             Fixture.Engine,
             "add",
-            "(module (func $add (import \"env\" \"add\") (func (export \"run\") (result i32) i32.const 40 i32.const 2 call $add)))");
+            "(module (func $add (import \"env\" \"add\") (param i32 i32) (result i32)) (func (export \"run\") (result i32) i32.const 40 i32.const 2 call $add))");
 
         var instance = clonedLinker.Instantiate(Store, module);
         var run = instance.GetFunction<int>("run");
