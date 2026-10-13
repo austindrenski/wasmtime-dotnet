@@ -27,6 +27,11 @@ namespace Wasmtime
             handle = new Handle(Native.wasmtime_linker_new(engine.NativeHandle));
         }
 
+        private Linker(Handle linker)
+        {
+            handle = linker;
+        }
+        
         /// <summary>
         /// Configures whether or not the linker allows later definitions to shadow previous definitions.
         /// </summary>
@@ -36,6 +41,21 @@ namespace Wasmtime
             {
                 Native.wasmtime_linker_allow_shadowing(handle, value);
             }
+        }
+
+        /// <summary>
+        /// Clones the linker, creating a new instance with the same state.
+        /// </summary>
+        /// <returns>A new <see cref="Linker"/> instance.</returns>
+        public Linker Clone()
+        {
+            var clonedHandlePtr = Native.wasmtime_linker_clone(handle);
+            if (clonedHandlePtr == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Failed to clone the linker.");
+            }
+
+            return new Linker(new Handle(clonedHandlePtr));
         }
 
         private void Define<T>(string module, string name, T item)
@@ -510,6 +530,9 @@ namespace Wasmtime
 
             [DllImport(Engine.LibraryName)]
             public static extern void wasmtime_linker_allow_shadowing(Handle linker, [MarshalAs(UnmanagedType.I1)] bool allow);
+
+            [DllImport(Engine.LibraryName)]
+            public static extern IntPtr wasmtime_linker_clone(Handle linker);
 
             [DllImport(Engine.LibraryName)]
             public static unsafe extern IntPtr wasmtime_linker_define(Handle linker, IntPtr context, byte* module, nuint moduleLen, byte* name, nuint nameLen, in Extern item);
