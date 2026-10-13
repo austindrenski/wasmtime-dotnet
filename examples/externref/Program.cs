@@ -9,7 +9,7 @@ using var store = new Store(engine);
 linker.Define(
     "",
     "concat",
-    Function.FromCallback(store, (string a, string b) => $"{a} {b}")
+    Function.FromCallback(store, static (string a, string b) => $"{a} {b}")
 );
 
 var instance = linker.Instantiate(store, module);

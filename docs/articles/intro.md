@@ -77,7 +77,7 @@ namespace Tutorial
             linker.Define(
                 "",
                 "hello",
-                Function.FromCallback(store, () => Console.WriteLine("Hello from C#!"))
+                Function.FromCallback(store, static () => Console.WriteLine("Hello from C#!"))
             );
 
             var instance = linker.Instantiate(store, module);
@@ -124,7 +124,7 @@ If you want to reuse the same import definitions for multiple independent linker
 
 ```c#
 using var linker = new Linker(engine);
-linker.Define("", "hello", Function.FromCallback(store, () => Console.WriteLine("Hello from C#!")));
+linker.Define("", "hello", Function.FromCallback(store, static () => Console.WriteLine("Hello from C#!")));
 
 using var clonedLinker = linker.Clone();
 var instance = clonedLinker.Instantiate(store, module);

@@ -10,7 +10,7 @@ using var store = new Store(engine);
 linker.Define(
     "",
     "expensive",
-    Function.FromCallback(store, (Caller caller) =>
+    Function.FromCallback(store, static (Caller caller) =>
     {
         checked
         {

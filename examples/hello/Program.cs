@@ -9,7 +9,7 @@ using var store = new Store(engine);
 linker.Define(
     "",
     "hello",
-    Function.FromCallback(store, () => Console.WriteLine("Hello from C#, WebAssembly!"))
+    Function.FromCallback(store, static () => Console.WriteLine("Hello from C#, WebAssembly!"))
 );
 
 var instance = linker.Instantiate(store, module);

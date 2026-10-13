@@ -9,7 +9,7 @@ using var store = new Store(engine);
 linker.Define(
     "",
     "log",
-    Function.FromCallback(store, (Caller caller, int address, int length) =>
+    Function.FromCallback(store, static (Caller caller, int address, int length) =>
     {
         var message = caller.GetMemory("mem").ReadString(address, length);
         Console.WriteLine($"Message from WebAssembly: {message}");

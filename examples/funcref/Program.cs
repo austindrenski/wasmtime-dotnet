@@ -9,17 +9,17 @@ using var store = new Store(engine);
 linker.Define(
     "",
     "g",
-    Function.FromCallback(store, (Caller caller, Function h) => { h.Invoke(); })
+    Function.FromCallback(store, static (Caller caller, Function h) => { h.Invoke(); })
 );
 
 linker.Define(
     "",
     "i",
-    Function.FromCallback(store, () => Console.WriteLine("Called via a function reference!"))
+    Function.FromCallback(store, static () => Console.WriteLine("Called via a function reference!"))
 );
 
-var func1 = Function.FromCallback(store, (string s) => Console.WriteLine($"First callback: {s}"));
-var func2 = Function.FromCallback(store, (string s) => Console.WriteLine($"Second callback: {s}"));
+var func1 = Function.FromCallback(store, static (string s) => Console.WriteLine($"First callback: {s}"));
+var func2 = Function.FromCallback(store, static (string s) => Console.WriteLine($"Second callback: {s}"));
 
 var instance = linker.Instantiate(store, module);
 

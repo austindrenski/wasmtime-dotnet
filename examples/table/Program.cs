@@ -8,10 +8,10 @@ using var store = new Store(engine);
 
 var table = new Table(store, TableKind.FuncRef, null, 4);
 
-table.SetElement(0, Function.FromCallback(store, (int a, int b) => a + b));
-table.SetElement(1, Function.FromCallback(store, (int a, int b) => a - b));
-table.SetElement(2, Function.FromCallback(store, (int a, int b) => a * b));
-table.SetElement(3, Function.FromCallback(store, (int a, int b) => a / b));
+table.SetElement(0, Function.FromCallback(store, static (int a, int b) => a + b));
+table.SetElement(1, Function.FromCallback(store, static (int a, int b) => a - b));
+table.SetElement(2, Function.FromCallback(store, static (int a, int b) => a * b));
+table.SetElement(3, Function.FromCallback(store, static (int a, int b) => a / b));
 
 linker.Define("", "table", table);
 

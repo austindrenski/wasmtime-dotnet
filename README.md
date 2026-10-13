@@ -76,7 +76,7 @@ using var store = new Store(engine);
 linker.Define(
     "",
     "hello",
-    Function.FromCallback(store, () => Console.WriteLine("Hello from C#!"))
+    Function.FromCallback(store, static () => Console.WriteLine("Hello from C#!"))
 );
 
 var instance = linker.Instantiate(store, module);
@@ -103,7 +103,7 @@ A linker can also be cloned to duplicate its current definitions before instanti
 
 ```csharp
 using var linker = new Linker(engine);
-linker.Define("", "hello", Function.FromCallback(store, () => Console.WriteLine("Hello from C#!")));
+linker.Define("", "hello", Function.FromCallback(store, static () => Console.WriteLine("Hello from C#!")));
 
 using var clonedLinker = linker.Clone();
 var instance = clonedLinker.Instantiate(store, module);
