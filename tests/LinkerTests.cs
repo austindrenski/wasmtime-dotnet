@@ -66,6 +66,25 @@ public sealed class LinkerTests
     }
 
     [Fact]
+    public void CloneCopiesDefinedImports()
+    {
+        Linker.Define("env", "add", Function.FromCallback(Store, (int x, int y) => x + y));
+
+        using var clonedLinker = Linker.Clone();
+
+        using var module = Module.FromText(
+            Fixture.Engine,
+            "add",
+            "(module (func $add (import \"env\" \"add\") (func (export \"run\") (result i32) i32.const 40 i32.const 2 call $add)))");
+
+        var instance = clonedLinker.Instantiate(Store, module);
+        var run = instance.GetFunction<int>("run");
+
+        Assert.NotNull(run);
+        Assert.Equal(42, run.Invoke());
+    }
+
+    [Fact]
     public void DefineWasiTwiceThrows()
     {
         Linker.DefineWasi();

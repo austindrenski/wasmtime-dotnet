@@ -99,6 +99,18 @@ $ dotnet run
 
 This should print `Hello from C#!`.
 
+A linker can also be cloned to duplicate its current definitions before instantiating a module:
+
+```csharp
+using var linker = new Linker(engine);
+linker.Define("", "hello", Function.FromCallback(store, () => Console.WriteLine("Hello from C#!")));
+
+using var clonedLinker = linker.Clone();
+var instance = clonedLinker.Instantiate(store, module);
+```
+ 
+This is useful when you need to share the same import setup across multiple independent linker instances.
+ 
 ## Contributing
 
 ### Building

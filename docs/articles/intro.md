@@ -115,7 +115,17 @@ dotnet run
 ```
 
 This should result in the following output:
-
+ 
 ```text
 Hello from C#!
+```
+
+If you want to reuse the same import definitions for multiple independent linker instances, clone the linker:
+
+```c#
+using var linker = new Linker(engine);
+linker.Define("", "hello", Function.FromCallback(store, () => Console.WriteLine("Hello from C#!")));
+
+using var clonedLinker = linker.Clone();
+var instance = clonedLinker.Instantiate(store, module);
 ```
