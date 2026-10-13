@@ -107,7 +107,7 @@ dotnet build
 This will create a `tutorial` (or `tutorial.exe` on Windows) executable in the `bin/Debug/net5.0` directory that implements the .NET application.
 
 ## Running the .NET application
- 
+
 To run the .NET application, simply invoke the executable file or use `dotnet`:
 
 ```text
@@ -115,7 +115,7 @@ dotnet run
 ```
 
 This should result in the following output:
- 
+
 ```text
 Hello from C#!
 ```

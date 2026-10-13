@@ -31,7 +31,7 @@ namespace Wasmtime
         {
             handle = linker;
         }
-        
+
         /// <summary>
         /// Configures whether or not the linker allows later definitions to shadow previous definitions.
         /// </summary>

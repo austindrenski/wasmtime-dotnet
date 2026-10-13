@@ -108,9 +108,9 @@ linker.Define("", "hello", Function.FromCallback(store, () => Console.WriteLine(
 using var clonedLinker = linker.Clone();
 var instance = clonedLinker.Instantiate(store, module);
 ```
- 
+
 This is useful when you need to share the same import setup across multiple independent linker instances.
- 
+
 ## Contributing
 
 ### Building
